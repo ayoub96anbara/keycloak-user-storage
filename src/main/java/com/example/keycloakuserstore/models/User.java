@@ -1,6 +1,7 @@
 package com.example.keycloakuserstore.models;
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -13,11 +14,14 @@ import java.util.UUID;
         @NamedQuery(name="getAllUsers", query="select u from User u"),
         @NamedQuery(name="searchForUser", query="select u from User u where " +
                 "( lower(u.username) like :search or u.email like :search ) order by u.username"),
+//        @NamedQuery(name="isEnabled", query="select u.enabled from User u where " +
+//                "( lower(u.username) like :search or u.email like :search ) order by u.username"),
 })
 @Entity
 @Table(name = "UserEntity")
 @Data
 @Accessors(chain = true)
+@ToString
 public class User {
     @Id
     @GeneratedValue
@@ -29,4 +33,7 @@ public class User {
     private String email;
     private String password;
     private String phone;
+    private boolean enabled;
+
+
 }

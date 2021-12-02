@@ -53,7 +53,7 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
                 .property().name(DB_CONNECTION_NAME_KEY)
                 .type(ProviderConfigProperty.STRING_TYPE)
                 .label("Connection Name")
-                .defaultValue("")
+                .defaultValue(System.currentTimeMillis())
                 .helpText("Name of the connection, can be chosen individually. Enables connection sharing between providers if the same name is provided. Overrides currently saved connection properties.")
                 .add()
 

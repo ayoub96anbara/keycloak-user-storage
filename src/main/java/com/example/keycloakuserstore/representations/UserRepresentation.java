@@ -1,5 +1,6 @@
 package com.example.keycloakuserstore.representations;
 
+import com.example.keycloakuserstore.beans.PasswordEncoderSingleton;
 import com.example.keycloakuserstore.dao.UserDAO;
 import com.example.keycloakuserstore.models.User;
 import org.keycloak.common.util.MultivaluedHashMap;
@@ -8,6 +9,7 @@ import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.storage.StorageId;
 import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -117,7 +119,19 @@ public class UserRepresentation extends AbstractUserAdapterFederatedStorage {
     }
 
     public void setPassword(String password) {
-        userEntity.setPassword(password);
+        PasswordEncoder passwordEncoder=PasswordEncoderSingleton.getInstance();
+        userEntity.setPassword(passwordEncoder.encode(password));
+        userEntity = userDAO.updateUser(userEntity);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return userEntity.isEnabled();
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        userEntity.setEnabled(enabled);
         userEntity = userDAO.updateUser(userEntity);
     }
 }
