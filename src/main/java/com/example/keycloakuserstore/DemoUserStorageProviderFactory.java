@@ -69,27 +69,28 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
                 .property().name(DB_DATABASE_KEY)
                 .type(ProviderConfigProperty.STRING_TYPE)
                 .label("Database Name")
+                .defaultValue("keycloak_spi")
                 .add()
 
                 // DB Username
                 .property().name(DB_USERNAME_KEY)
                 .type(ProviderConfigProperty.STRING_TYPE)
                 .label("Database Username")
-                .defaultValue("user")
+                .defaultValue("root")
                 .add()
 
                 // DB Password
                 .property().name(DB_PASSWORD_KEY)
                 .type(ProviderConfigProperty.PASSWORD)
                 .label("Database Password")
-                .defaultValue("PASSWORD")
+                .defaultValue("root")
                 .add()
 
                 // DB Port
                 .property().name(DB_PORT_KEY)
                 .type(ProviderConfigProperty.STRING_TYPE)
                 .label("Database Port")
-                .defaultValue("3306")
+                .defaultValue("3308")
                 .add()
                 .build();
     }

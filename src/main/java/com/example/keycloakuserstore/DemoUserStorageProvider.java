@@ -71,7 +71,14 @@ public class DemoUserStorageProvider implements UserStorageProvider,
 	public boolean updateCredential(RealmModel realm, UserModel userModel, CredentialInput input) {
 		logger.info("updateCredential("+realm+", "+userModel+", "+input+")");
 		if (!supportsCredentialType(input.getType()) || !(input instanceof UserCredentialModel)) return false;
-		User user = new User().setUsername(userModel.getUsername());
+
+		String id=userModel.getId();
+//		User user = userDAO.getUserById(id);
+		User user = userDAO.getUserByEmail(userModel.getEmail()).get();
+
+		user.setUsername(userModel.getUsername());
+
+		//User user = new User().setUsername(userModel.getUsername());
 		user.setPassword(input.getChallengeResponse());
 		userDAO.updateUser(user);
 		return true;
